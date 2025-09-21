@@ -26,7 +26,7 @@ app/
 │       └── group/               // Группированные уведомления
 │           └── [type]/
 │               └── [id]/
-│                   └── route.js # Endpoint для групп уведомлений
+│                   └── route.js // Endpoint для групп уведомлений
 ├── components/                   // React компоненты
 │   ├── AvatarPlaceholder/       // Компонент аватара-заглушки
 │   │   ├── AvatarPlaceholder.jsx
