@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer';
 import styles from './Notifications.module.css';
 import Skeleton from '../Skeleton/Skeleton';
 import AvatarPlaceholder from '../AvatarPlaceholder/AvatarPlaceholder';
+import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import { useInfiniteNotifications } from '../../hooks/useInfiniteNotifications';
 
 const mockNotifications = [
@@ -79,6 +80,8 @@ const Notifications = () => {
   const [activeTab, setActiveTab] = useState('all');
   const [actionLog, setActionLog] = useState([]);
   const [notifications, setNotifications] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedNotificationId, setSelectedNotificationId] = useState(null);
 
   const {
     data,
@@ -145,7 +148,21 @@ const Notifications = () => {
   const handleMenuClick = (e, notificationId) => {
     e?.stopPropagation?.();
     if (notificationId) {
+      setSelectedNotificationId(notificationId);
+      setIsModalOpen(true);
       logAction(`Действие 3: Клик по меню уведомления ${notificationId}`);
+    }
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setSelectedNotificationId(null);
+  };
+
+  const handleDeleteNotification = () => {
+    if (selectedNotificationId) {
+      setNotifications(notifications.filter(n => n.id !== selectedNotificationId));
+      logAction(`Удалено уведомление ${selectedNotificationId}`);
     }
   };
 
@@ -369,6 +386,16 @@ const Notifications = () => {
           ))}
         </div>
       </aside>
+
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        onConfirm={handleDeleteNotification}
+        title="Удалить уведомление"
+        message="Вы уверены, что хотите удалить это уведомление?"
+        confirmText="Удалить"
+        cancelText="Отменить"
+      />
     </div>
   );
 };

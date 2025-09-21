@@ -31,6 +31,9 @@ app/
 │   ├── AvatarPlaceholder/       // Компонент аватара-заглушки
 │   │   ├── AvatarPlaceholder.jsx
 │   │   └── AvatarPlaceholder.module.css
+│   ├── ConfirmationModal/       // Модальное окно подтверждения
+│   │   ├── ConfirmationModal.jsx
+│   │   └── ConfirmationModal.module.css
 │   ├── Notifications/           // Основной компонент уведомлений
 │   │   ├── Notifications.jsx
 │   │   └── Notifications.module.css
