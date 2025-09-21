@@ -1,0 +1,115 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 280px;
+  transition: margin-left 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+  .main-content {
+    margin-left: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 200px;
+  }
+}
+
+@media (max-width: 640px) {
+  .main-content {
+    margin-left: 0;
+  }
+}
+
+
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #ffffff;
+  --bg-hover: #f8f9fa;
+  --bg-unread: #ffffff;
+  --text-primary: #0F1419;
+  --text-secondary: #0F1419;
+  --primary-color: #5B19E7;
+  --primary-light: rgba(91, 25, 231, 0.1);
+  --border-color: #dadce0;
+  --border-light: #f1f3f4;
+  --skeleton-base: #e8eaed;
+  --skeleton-highlight: #f8f9fa;
+  --accent-color: #34a853;
+  --warning-color: #fbbc04;
+  --error-color: #ea4335;
+  --shadow-light: rgba(60, 64, 67, 0.08);
+  --shadow-medium: rgba(60, 64, 67, 0.12);
+}
+
+
+[data-theme='dark'] {
+  --bg-primary: #0f0f0f;
+  --bg-secondary: #1a1a1a;
+  --bg-hover: #2d2d2d;
+  --bg-unread: #1a1a1a;
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;
+  --primary-color: #8b5cf6;
+  --primary-light: rgba(139, 92, 246, 0.15);
+  --border-color: #3c4043;
+  --border-light: #2d2d2d;
+  --skeleton-base: #3c4043;
+  --skeleton-highlight: #4a4a4a;
+  --accent-color: #34a853;
+  --warning-color: #fbbc04;
+  --error-color: #ea4335;
+  --shadow-light: rgba(0, 0, 0, 0.3);
+  --shadow-medium: rgba(0, 0, 0, 0.4);
+}
+
+[data-theme='light'] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #ffffff;
+  --bg-hover: #f8f9fa;
+  --bg-unread: #ffffff;
+  --text-primary: #0F1419;
+  --text-secondary: #0F1419;
+  --primary-color: #5B19E7;
+  --primary-light: rgba(91, 25, 231, 0.1);
+  --border-color: #dadce0;
+  --border-light: #f1f3f4;
+  --skeleton-base: #e8eaed;
+  --skeleton-highlight: #f8f9fa;
+  --accent-color: #34a853;
+  --warning-color: #fbbc04;
+  --error-color: #ea4335;
+  --shadow-light: rgba(60, 64, 67, 0.08);
+  --shadow-medium: rgba(60, 64, 67, 0.12);
+}
