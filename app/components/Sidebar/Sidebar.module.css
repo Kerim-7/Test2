@@ -1,5 +1,5 @@
 .sidebar {
-  width: 280px;
+  width: 320px;
   height: 100vh;
   background-color: var(--bg-primary);
   border-right: 1px solid var(--border-color);
@@ -15,7 +15,17 @@
 
 .profileSection {
   padding: 24px 20px;
-  border-bottom: 1px solid var(--border-color);
+  position: relative;
+}
+
+.profileSection::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background-color: var(--border-color);
 }
 
 .profileInfo {
@@ -257,7 +267,7 @@
 
 @media (max-width: 1024px) {
   .sidebar {
-    width: 240px;
+    width: 260px;
   }
   
   .profileSection {
@@ -284,7 +294,7 @@
 
 @media (max-width: 768px) {
   .sidebar {
-    width: 200px;
+    width: 220px;
   }
   
   .profileSection {

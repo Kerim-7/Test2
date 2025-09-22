@@ -10,6 +10,7 @@ export default function RootLayout({ children }) {
  return (
     <html lang="en">
       <body>
+        <div className="page-right-border" />
         <QueryProvider>
           {children}
         </QueryProvider>

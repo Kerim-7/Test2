@@ -5,6 +5,19 @@
   background-color: var(--bg-primary);
   color: var(--text-primary);
   min-height: 100vh;
+  position: relative;
+}
+
+.container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 1px;
+  background-color: var(--border-color);
+  pointer-events: none;
+  z-index: 11;
 }
 
 .header {
@@ -12,8 +25,28 @@
   top: 0;
   background-color: var(--bg-primary);
   z-index: 10;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0;
+}
+
+.headerMenuButton {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  padding: 6px 8px;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 36px; /* крупнее в 3 раза */
+  line-height: 1;
+  transform: rotate(90deg);
+  transform-origin: 50% 50%;
+}
+
+.headerMenuButton:hover { 
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
 }
 
 .title {
@@ -29,7 +62,17 @@
 
 .tabs {
   display: flex;
-  border-bottom: 1px solid var(--border-color);
+  position: relative;
+}
+
+.tabs::after {
+  content: '';
+  position: absolute;
+  left: -20px;
+  right: 0;
+  bottom: 1px;
+  height: 1px;
+  background-color: var(--border-color);
 }
 
 .tab {
@@ -52,6 +95,24 @@
   font-weight: bold;
 }
 
+.tab {
+  position: relative;
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 2px;
+  width: 120px;
+  max-width: 60%;
+  height: 4px;
+  background-color: var(--primary-color);
+  border-radius: 2px;
+  z-index: 2;
+}
+
 [data-theme='dark'] .tab {
   color: #b3b3b3;
 }
@@ -66,8 +127,9 @@
 
 
 .content {
-  margin-top: 20px;
+  margin-top: 0;
 }
+
 
 .emptyState {
   text-align: center;
@@ -81,28 +143,61 @@
 }
 
 .emptyState h2 {
-  margin-bottom: 0.5rem;
-  font-weight: 600;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+  font-size: 2rem;
+  color: var(--text-primary);
 }
 
 .emptyState p {
-  line-height: 1.5;
+  line-height: 1.6;
+  max-width: 660px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-size: 1.0625rem;
+  color: var(--text-secondary);
 }
 
 .notificationsList {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0;
+  position: relative;
+  min-height: 100vh;
+}
+
+.notificationsList::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 1px;
+  background-color: var(--border-color);
+  pointer-events: none;
+  z-index: 12; /* выше карточек и их фонов */
 }
 
 .notificationCard {
   position: relative;
   padding: 20px;
-  border-radius: 16px;
+  border-radius: 0;
   background-color: var(--bg-secondary);
-  border: 1px solid var(--border-color);
+  border: none;
+  border-left: none;
+  border-right: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
   cursor: pointer;
-  box-shadow: 0 1px 3px var(--shadow-light);
+  box-shadow: none;
+  margin: 0 0 0 -20px;
+  z-index: 1;
+}
+
+.notificationCard:first-child { border-top: none; }
+
+.notificationCard:last-child {
+  border-bottom: 1px solid var(--border-color);
 }
 
 .notificationCard:hover {
@@ -216,6 +311,8 @@
   border-radius: 4px;
   font-weight: bold;
   color: var(--text-secondary);
+  transform: rotate(90deg);
+  transform-origin: 50% 50%;
 }
 
 .menuButton:hover {
@@ -270,6 +367,9 @@
 
 
 @media (max-width: 768px) {
+  .tabs::after {
+    left: 0;
+  }
   .container {
     padding: 0;
     max-width: 100%;
@@ -360,6 +460,15 @@
   .notificationContent {
     margin-left: 0;
     margin-top: 8px;
+  }
+
+  .notificationCard {
+    margin: 0 0 0 -16px;
+    padding: 16px;
+  }
+
+  .notificationsList::after {
+    right: 0;
   }
   
   .notificationContent p {

@@ -26,7 +26,7 @@ const Sidebar = () => {
       <div className={styles.profileSection}>
         <div className={styles.profileInfo}>
           <div className={styles.avatar}>
-            <img src="https://picsum.photos/seed/profile/60/60" alt="Profile" />
+            <img src="/images/profile.jpg" alt="Profile" />
           </div>
           <div className={styles.balance}>
             <span className={styles.balanceAmount}>560,000,690</span>

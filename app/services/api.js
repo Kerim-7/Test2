@@ -177,7 +177,6 @@ export const fetchNotifications = async ({ pageParam = 0, limit = 10 }) => {
       nextCursor: data.offset + data.limit
     };
   } catch (error) {
-    console.error('Error fetching notifications, using mock data:', error);
     
     const startIndex = pageParam;
     const endIndex = Math.min(startIndex + limit, mockNotifications.length);
@@ -215,7 +214,6 @@ export const fetchNotificationGroup = async ({ notifType, targetId, pageParam = 
       nextCursor: data.offset + data.limit
     };
   } catch (error) {
-    console.error('Error fetching notification group:', error);
     throw error;
   }
 };

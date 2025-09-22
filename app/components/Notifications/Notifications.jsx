@@ -82,6 +82,10 @@ const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedNotificationId, setSelectedNotificationId] = useState(null);
+  const [modalTitle, setModalTitle] = useState('');
+  const [modalMessage, setModalMessage] = useState('');
+  const [modalConfirmText, setModalConfirmText] = useState('');
+  const [modalCancelText, setModalCancelText] = useState('');
 
   const {
     data,
@@ -149,9 +153,23 @@ const Notifications = () => {
     e?.stopPropagation?.();
     if (notificationId) {
       setSelectedNotificationId(notificationId);
+      setModalTitle('Удалить уведомление');
+      setModalMessage('Вы уверены, что хотите удалить это уведомление?');
+      setModalConfirmText('Удалить');
+      setModalCancelText('Отменить');
       setIsModalOpen(true);
       logAction(`Действие 3: Клик по меню уведомления ${notificationId}`);
     }
+  };
+
+  const handleHeaderMenuClick = () => {
+    setSelectedNotificationId(null);
+    setModalTitle('Удалить все уведомления');
+    setModalMessage('Вы уверены, что хотите удалить все уведомления?');
+    setModalConfirmText('Удалить все');
+    setModalCancelText('Отменить');
+    setIsModalOpen(true);
+    logAction('Действие 3: Клик по верхнему меню уведомлений');
   };
 
   const handleModalClose = () => {
@@ -163,6 +181,9 @@ const Notifications = () => {
     if (selectedNotificationId) {
       setNotifications(notifications.filter(n => n.id !== selectedNotificationId));
       logAction(`Удалено уведомление ${selectedNotificationId}`);
+    } else {
+      setNotifications([]);
+      logAction('Удалены все уведомления');
     }
   };
 
@@ -210,6 +231,13 @@ const Notifications = () => {
     <div className={styles.container} suppressHydrationWarning>
       <header className={styles.header}>
         <h1 className={styles.title}>Уведомления</h1>
+        <button 
+          className={styles.headerMenuButton}
+          aria-label="Меню уведомлений"
+          onClick={handleHeaderMenuClick}
+        >
+          ⋮
+        </button>
         <nav className={styles.tabs} role="tablist">
           <button 
             className={`${styles.tab} ${activeTab === 'all' ? styles.active : ''}`}
@@ -264,9 +292,17 @@ const Notifications = () => {
           </section>
         ) : filteredNotifications.length === 0 ? (
           <section className={styles.emptyState}>
-            <div className={styles.emptyIcon} aria-hidden="true">🔔</div>
+            <div className={styles.emptyIcon} aria-hidden="true">
+              <img src="/illustrations/empty.svg" alt="Пусто" width="180" height="180" />
+            </div>
             <h2>Пока нет информации</h2>
-            <p>Репосты, отметки «Нравится» и многое другое — здесь вы найдете все взаимодействия с контентом.</p>
+            <p>
+              Репосты, отметки «Нравится»
+              <br />
+              и многое другое — здесь вы найдете все
+              <br />
+              взаимодействия с контентом.
+            </p>
           </section>
         ) : (
           <section className={styles.notificationsList} role="list">
@@ -391,10 +427,10 @@ const Notifications = () => {
         isOpen={isModalOpen}
         onClose={handleModalClose}
         onConfirm={handleDeleteNotification}
-        title="Удалить уведомление"
-        message="Вы уверены, что хотите удалить это уведомление?"
-        confirmText="Удалить"
-        cancelText="Отменить"
+        title={modalTitle}
+        message={modalMessage}
+        confirmText={modalConfirmText || 'Удалить'}
+        cancelText={modalCancelText || 'Отменить'}
       />
     </div>
   );
