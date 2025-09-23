@@ -320,56 +320,47 @@ const Notifications = () => {
                       onClick={(e) => handleUserClick(e, notification.user, notification.id)}
                       aria-label={`Профиль пользователя ${notification.user.name}`}
                     >
-                      {notification.user.avatar ? (
-                        <>
+                      {(() => {
+                        const isAction = ['like','repost','follow'].includes(notification.type);
+                        const avatarSrc = (isAction && notification.user.name !== 'Malvina Ponchikon')
+                          ? '/images/default-user.png'
+                          : (notification.user.avatar || '/images/default-user.png');
+                        return (
                           <img 
-                            src={notification.user.avatar} 
+                            src={avatarSrc}
                             alt={notification.user.name}
-                            onError={(e) => {
-                              e.target.style.display = 'none';
-                              if (e.target.nextSibling) {
-                                e.target.nextSibling.style.display = 'flex';
-                              }
-                            }}
+                            onError={(e) => { e.currentTarget.src = '/images/default-user.png'; }}
                           />
-                          <AvatarPlaceholder 
-                            size="medium" 
-                            className={styles.placeholderHidden}
-                          />
-                        </>
-                      ) : (
-                        <AvatarPlaceholder 
-                          size="medium" 
-                          className={styles.placeholderVisible}
-                        />
-                      )}
+                        );
+                      })()}
                     </button>
                     <div className={styles.userDetails}>
-                      <button 
-                        className={styles.userName}
-                        onClick={(e) => handleUserClick(e, notification.user, notification.id)}
-                        aria-label={`Профиль пользователя ${notification.user.name}`}
-                      >
-                        {notification.user.name}
-                      </button>
-                      <button 
-                        className={styles.userUsername}
-                        onClick={(e) => handleUserClick(e, notification.user, notification.id)}
-                        aria-label={`Профиль пользователя @${notification.user.username}`}
-                      >
-                        @{notification.user.username}
-                      </button>
+                      <div className={styles.nameRow}>
+                        <button 
+                          className={styles.userName}
+                          onClick={(e) => handleUserClick(e, notification.user, notification.id)}
+                          aria-label={`Профиль пользователя ${notification.user.name}`}
+                        >
+                          {notification.user.name}
+                        </button>
+                        <span className={styles.inlineText}> {notification.content}</span>
+                      </div>
+
                     </div>
                   </div>
                   
                   <div className={styles.actions}>
-                    <button 
-                      className={`${styles.followButton} ${notification.isFollowing ? styles.following : ''}`}
-                      onClick={(e) => handleFollowClick(e, notification.id, notification.isFollowing)}
-                      aria-label={notification.isFollowing ? 'Отписаться от пользователя' : 'Подписаться на пользователя'}
-                    >
-                      {notification.isFollowing ? 'Подписан' : 'Подписаться'}
-                    </button>
+                    {notification.type === 'follow' ? (
+                      <button 
+                        className={`${styles.followButton} ${notification.isFollowing ? styles.following : ''}`}
+                        onClick={(e) => handleFollowClick(e, notification.id, notification.isFollowing)}
+                        aria-label={notification.isFollowing ? 'Отписаться от пользователя' : 'Подписаться на пользователя'}
+                      >
+                        {notification.isFollowing ? 'Подписан' : 'Подписаться'}
+                      </button>
+                    ) : (
+                      <img className={styles.rightThumb} src={'/images/action-thumb.jpg'} alt="thumb" />
+                    )}
                     <button 
                       className={styles.menuButton}
                       onClick={(e) => handleMenuClick(e, notification.id)}
@@ -380,8 +371,7 @@ const Notifications = () => {
                   </div>
                 </header>
                 
-                <div className={styles.notificationContent}>
-                  <p>{notification.content}</p>
+                <div className={styles.notificationContentCompact}>
                   <time className={styles.timestamp} dateTime={notification.timestamp}>{notification.timestamp}</time>
                 </div>
                 

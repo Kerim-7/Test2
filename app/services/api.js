@@ -1,4 +1,5 @@
 const API_BASE_URL = '';
+const USE_DEMO_DATA = true;
 
 export const transformNotification = (apiNotification) => {
   const isGrouped = apiNotification.users && apiNotification.users.length > 0;
@@ -77,86 +78,149 @@ const formatTimestamp = (isoString) => {
 };
 
 const mockNotifications = [
-  {
-    type: 'like',
-    target_id: 'post_like_1',
-    user: {
-      online: true,
-      avatar: null,       name: 'Алексей Петров',
-      username: 'alexey_p',
-      sex: 'male',
-      verified: false,
-      stories: null
-    },
-    text: 'Лайкнули ваш пост о путешествиях',
-    created: new Date(Date.now() - 24 * 60 * 1000).toISOString(),
-    image: 'https://picsum.photos/seed/post1/48/48'
-  },
+  // Общение
   {
     type: 'comment',
-    target_id: 'post_comment_1',
-    user: {
-      online: false,
-      avatar: 'https://ui-avatars.com/api/?name=maria_i&size=48&background=5B19E7&color=fff&bold=true',
-      name: 'Мария Иванова',
-      username: 'maria_i',
-      sex: 'female',
-      verified: true,
-      stories: { total_count: 3, seen_count: 1 }
-    },
-    text: 'Оставила комментарий: "Отличная статья!"',
-    created: new Date(Date.now() - 60 * 60 * 1000).toISOString(),
-    image: 'https://picsum.photos/seed/post2/48/48'
-  },
-  {
-    type: 'repost',
-    target_id: 'post_repost_1',
+    target_id: 'reply_thanks_1',
     user: {
       online: true,
-      avatar: null,       name: 'Иван Сидоров',
-      username: 'ivan_s',
-      sex: 'male',
+      avatar: '/images/profile.jpg',
+      name: 'Planton Fernando',
+      username: 'planton',
       verified: false,
       stories: null
     },
-    text: 'Репостнул вашу запись',
-    created: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
-    image: 'https://picsum.photos/seed/post3/48/48'
-  },
-  {
-    type: 'follow',
-    target_id: 'user_follow_1',
-    user: {
-      online: false,
-      avatar: 'https://ui-avatars.com/api/?name=ekaterina_v&size=48&background=5B19E7&color=fff&bold=true',
-      name: 'Екатерина Волкова',
-      username: 'ekaterina_v',
-      sex: 'female',
-      verified: false,
-      stories: null
-    },
-    text: 'Подписалась на вас',
-    created: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
-    image: null
+    text: 'ответил вам «Спасибо за комплимент»',
+    created: new Date(Date.now() - 2 * 60 * 1000).toISOString(),
+    image: '/images/action-thumb.jpg'
   },
   {
     type: 'mention',
-    target_id: 'post_mention_1',
+    target_id: 'mention_king_1',
     user: {
       online: true,
-      avatar: null,       name: 'Дмитрий Козлов',
-      username: 'dmitry_k',
-      sex: 'male',
-      verified: true,
-      stories: { total_count: 7, seen_count: 2 }
+      avatar: '/images/profile.jpg',
+      name: 'Planton Fernando',
+      username: 'planton',
+      verified: false,
+      stories: null
     },
-    text: 'Упомянул вас в комментарии',
-    created: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
-    image: 'https://picsum.photos/seed/post4/48/48'
+    text: 'упомянул вас «Вы же знаете моего короля» лучшего? @redf мой лучший друг',
+    created: new Date(Date.now() - 2 * 60 * 1000).toISOString(),
+    image: '/images/action-thumb.jpg'
+  },
+  {
+    type: 'mention',
+    target_id: 'mention_king_2',
+    user: {
+      online: true,
+      avatar: '/images/default-user.png',
+      name: 'Dodik',
+      username: 'dodik',
+      verified: false,
+      stories: null
+    },
+    text: 'упомянул вас «Вы же знаете моего короля» лучшего? @redf мой лучший друг',
+    created: new Date(Date.now() - 2 * 60 * 1000).toISOString(),
+    image: '/images/action-thumb.jpg'
+  },
+  // Действия
+  // 1) Malvina Ponchikon опубликовал новый пост, коллекцию спайстори
+  {
+    type: 'repost',
+    target_id: 'publish_post_1',
+    user: {
+      online: true,
+      avatar: '/images/malvina.jpg',
+      name: 'Malvina Ponchikon',
+      username: 'malvina',
+      verified: false,
+      stories: null
+    },
+    text: 'опубликовал новый пост, коллекцию спайстори',
+    created: new Date(Date.now() - 24 * 60 * 1000).toISOString(),
+    image: 'https://picsum.photos/seed/malvina1/56/56'
+  },
+  // 2) Malvina Ponchikon подписался на вашу общую подписку
+  {
+    type: 'follow',
+    target_id: 'follow_common_1',
+    user: {
+      online: true,
+      avatar: '/images/malvina.jpg',
+      name: 'Malvina Ponchikon',
+      username: 'malvina_follow',
+      verified: false,
+      stories: null
+    },
+    text: 'подписался на вашу общую подписку',
+    created: new Date(Date.now() - 24 * 60 * 1000).toISOString(),
+    image: null
+  },
+  // 3) Planton Fernando, John Snowing looser и ещё 23 пользователям понравилась ваша публикация
+  {
+    type: 'like',
+    target_id: 'likes_23_1',
+    user: {
+      online: true,
+      avatar: 'https://i.pravatar.cc/48?img=14',
+      name: 'Planton Fernando',
+      username: 'planton',
+      verified: false,
+      stories: null
+    },
+    text: 'Planton Fernando, John Snowing looser и ещё 23 пользователям понравилась ваша публикация',
+    created: new Date(Date.now() - 60 * 60 * 1000).toISOString(),
+    image: 'https://picsum.photos/seed/likedpost/56/56'
+  },
+  // 4) Planton Fernando подписался на вас
+  {
+    type: 'follow',
+    target_id: 'follow_planton_1',
+    user: {
+      online: true,
+      avatar: 'https://i.pravatar.cc/48?img=15',
+      name: 'Planton Fernando',
+      username: 'planton_fernando',
+      verified: false,
+      stories: null
+    },
+    text: 'подписался на вас',
+    created: new Date(Date.now() - 26 * 60 * 60 * 1000).toISOString(),
+    image: null
+  },
+  // 5) Planton Fernando закончилась платная подписка
+  {
+    type: 'repost',
+    target_id: 'paid_finish_1',
+    user: {
+      online: true,
+      avatar: 'https://i.pravatar.cc/48?img=16',
+      name: 'Planton Fernando',
+      username: 'planton_paid',
+      verified: false,
+      stories: null
+    },
+    text: 'закончилась платная подписка',
+    created: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+    image: 'https://icons.iconarchive.com/icons/iconsmind/outline/56/Chat-icon.png'
   }
 ];
 
 export const fetchNotifications = async ({ pageParam = 0, limit = 10 }) => {
+  if (USE_DEMO_DATA) {
+    const startIndex = pageParam;
+    const endIndex = Math.min(startIndex + limit, mockNotifications.length);
+    const pageData = mockNotifications.slice(startIndex, endIndex);
+    return {
+      notifications: pageData.map(transformNotification),
+      total: mockNotifications.length,
+      limit: limit,
+      offset: pageParam,
+      hasMore: endIndex < mockNotifications.length,
+      nextCursor: endIndex
+    };
+  }
   try {
     const response = await fetch(
       `/api/notifications?limit=${limit}&offset=${pageParam}`

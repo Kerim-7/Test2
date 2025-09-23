@@ -58,7 +58,10 @@ app/
 
 public/
 ├── images/
-│   └── profile.jpg               // Аватар в сайдбаре
+│   ├── profile.jpg               // Аватар в сайдбаре
+│   ├── default-user.png          // Дефолтный аватар пользователей
+│   ├── action-thumb.jpg          // Превью справа в "Действиях"
+│   └── malvina.jpg               // Аватар Malvina Ponchikon
 └── illustrations/
     └── empty.svg                 // Пустое состояние уведомлений
 
